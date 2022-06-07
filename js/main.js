@@ -3,17 +3,17 @@ const getRandomInt = function (min, max) {
     throw 'getRandomInt Error: max value less then min value';
   }
   return Math.floor(Math.random() * (max - min) + min);
-}
+};
 
 const getRandomNumber = function (min, max, fractionDigits) {
   if (max < min) {
     throw 'getRandomNumber Error: max value less then min value';
   }
-  let randomNumber = Math.random() * (max - min) + min
+  const randomNumber = Math.random() * (max - min) + min;
   return randomNumber.toFixed(fractionDigits);
-}
+};
 
 
-console.log(getRandomInt(0.1, 15)) //DELETE
-console.log(getRandomNumber(1, 12, 3)) //DELETE
+getRandomInt(0.1, 15); //DELETE
+getRandomNumber(1, 12, 3); //DELETE
 
