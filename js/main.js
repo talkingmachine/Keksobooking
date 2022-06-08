@@ -14,7 +14,7 @@ const getRandomNumber = (min, max, fractionDigits) => {
 };
 
 
-console.log(getRandomInt(1, 1)); //DELETE
-console.log(getRandomNumber(1, 1, 3)); //DELETE
+getRandomInt(1, 10); //DELETE
+getRandomNumber(1, 10, 3); //DELETE
 
 
