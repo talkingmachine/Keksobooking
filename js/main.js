@@ -48,31 +48,35 @@ const getArrayElement = (array) => (
 
 const getAdvertisement = () => {
   advtImageNumber += 1;
+  const author = {
+    avatar: `img/avatars/user${(`0${advtImageNumber}`).slice(-2)}.png`
+  };
+  const location = {
+    lat: getRandomNumber(35.65000, 35.70000, 5),
+    lng: getRandomNumber(139.70000, 139.80000, 5)
+  };
+  const offer = {
+    title: 'THE TITLE',
+    address: `${location.lat}, ${location.lng}`,
+    price: getRandomInt(10, 1000),
+    type: TYPE_OPTIONS[getArrayElement(TYPE_OPTIONS)],
+    rooms: getRandomInt(1, 10),
+    quests: getRandomInt(1, 40),
+    checkin: TIME_OPTIONS[getArrayElement(TIME_OPTIONS)],
+    checkout: TIME_OPTIONS[getArrayElement(TIME_OPTIONS)],
+    features: FEATURES.slice(getArrayElement(FEATURES)),
+    description: 'THE DESCRIPTION',
+    photos: PHOTOS.slice(getArrayElement(PHOTOS)),
+  };
   return {
-    author: {
-      avatar: `img/avatars/user${(`0${advtImageNumber}`).slice(-2)}.png`
-    },
-    offer: {
-      title: 'THE TITLE',
-      address: `${location.lat}, ${location.lng}`,
-      price: getRandomInt(10, 1000),
-      type: TYPE_OPTIONS[getArrayElement(TYPE_OPTIONS)],
-      rooms: getRandomInt(1, 10),
-      quests: getRandomInt(1, 40),
-      checkin: TIME_OPTIONS[getArrayElement(TIME_OPTIONS)],
-      checkout: TIME_OPTIONS[getArrayElement(TIME_OPTIONS)],
-      features: FEATURES.slice(getArrayElement(FEATURES)),
-      description: 'THE DESCRIPTION',
-      photos: PHOTOS.slice(getArrayElement(PHOTOS)),
-    },
-    location: {
-      lat: getRandomNumber(35.65000, 35.70000, 5),
-      lng: getRandomNumber(139.70000, 139.80000, 5)
-    }
+    author,
+    offer,
+    location
   };
 };
 
 const adsList = Array.from({length: ADS_COUNT}, getAdvertisement);
 adsList.join(); //DELETE
+console.log(adsList);
 
 
