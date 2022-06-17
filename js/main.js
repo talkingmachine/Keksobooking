@@ -77,6 +77,5 @@ const getAdvertisement = () => {
 
 const adsList = Array.from({length: ADS_COUNT}, getAdvertisement);
 adsList.join(); //DELETE
-console.log(adsList);
 
 
