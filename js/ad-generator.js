@@ -1,33 +1,7 @@
 import {getRandomNumber, getRandomInt, getArrayElement} from './utils.js';
+import {TYPE_KEYS, FEATURES, PHOTOS, TIME_OPTIONS} from './data.js';
 
-const ADS_COUNT = 10;
 let advtImageNumber = 0;
-
-const TYPE_OPTIONS = [
-  'palace',
-  'flat',
-  'house',
-  'bungalow',
-  'hotel'
-];
-const TIME_OPTIONS = [
-  '12:00',
-  '13:00',
-  '14:00'
-];
-const FEATURES = [
-  'wifi',
-  'dishwasher',
-  'parking',
-  'washer',
-  'elevator',
-  'conditioner'
-];
-const PHOTOS = [
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
-];
 
 const generateAdvertisement = () => {
   advtImageNumber += 1;
@@ -42,9 +16,9 @@ const generateAdvertisement = () => {
     title: 'THE TITLE',
     address: `${location.lat}, ${location.lng}`,
     price: getRandomInt(10, 1000),
-    type: TYPE_OPTIONS[getArrayElement(TYPE_OPTIONS)],
+    type: TYPE_KEYS[getArrayElement(TYPE_KEYS)],
     rooms: getRandomInt(1, 10),
-    quests: getRandomInt(1, 40),
+    guests: getRandomInt(1, 40),
     checkin: TIME_OPTIONS[getArrayElement(TIME_OPTIONS)],
     checkout: TIME_OPTIONS[getArrayElement(TIME_OPTIONS)],
     features: FEATURES.slice(getArrayElement(FEATURES)),
@@ -58,8 +32,8 @@ const generateAdvertisement = () => {
   };
 };
 
-const getAdvertisement = () => (
-  Array.from({length: ADS_COUNT}, generateAdvertisement)
+const getAdvertisement = (adsCount) => (
+  Array.from({length: adsCount}, generateAdvertisement)
 );
 
 export {getAdvertisement};

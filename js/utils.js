@@ -1,4 +1,3 @@
-
 const getRandomInt = (min, max) => {
   if (max < min) {
     throw 'getRandomInt Error: max value less then min value';
