@@ -27,4 +27,13 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
 ];
 
-export {TYPE_OPTIONS, TYPE_KEYS, FEATURES, PHOTOS, TIME_OPTIONS};
+const GUESTS_OPTION = {
+  1: [1],
+  2: [1,2],
+  3: [1,2,3],
+  100: [0]
+};
+
+//const NUMBER_FIELD_RE = /^\d+$/;
+
+export {TYPE_OPTIONS, TYPE_KEYS, FEATURES, PHOTOS, TIME_OPTIONS, GUESTS_OPTION};
