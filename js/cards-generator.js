@@ -1,4 +1,4 @@
-import {TYPE_OPTIONS} from './data.js';
+import {TYPE_OPTIONS_PRICE} from './data.js';
 
 const cardTemplate = document.querySelector('#card').content;
 
@@ -7,7 +7,7 @@ const getCard = ({offer, author}) => {
   newCard.querySelector('.popup__title').textContent = offer.title; // TITLE
   newCard.querySelector('.popup__text--address').textContent = offer.address; // ADDRESS
   newCard.querySelector('.popup__text--price').innerHTML = `${offer.price} <span>₽/ночь</span>`; // PRICE
-  newCard.querySelector('.popup__type').textContent = TYPE_OPTIONS[offer.type]; // TYPE
+  newCard.querySelector('.popup__type').textContent = TYPE_OPTIONS_PRICE[offer.type][0]; // TYPE
   newCard.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`; //ROOM GUESTS
   newCard.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`; // CHECKIN CHECKOUT
   const featuresList = offer.features.map((feature) => (`popup__feature--${feature}`));

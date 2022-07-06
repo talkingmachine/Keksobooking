@@ -1,12 +1,12 @@
-const TYPE_OPTIONS = {
-  'palace': 'Дворец',
-  'flat': 'Квартира',
-  'house': 'Дом',
-  'bungalow': 'Бунгало',
-  'hotel': 'Отель'
+const TYPE_OPTIONS_PRICE = {
+  'palace': ['Дворец', 10000],
+  'flat': ['Квартира', 1000],
+  'house': ['Дом', 5000],
+  'bungalow': ['Бунгало', 0],
+  'hotel': ['Отель', 3000]
 };
 
-const TYPE_KEYS = Object.keys(TYPE_OPTIONS);
+const TYPE_KEYS = Object.keys(TYPE_OPTIONS_PRICE);
 
 const TIME_OPTIONS = [
   '12:00',
@@ -34,6 +34,4 @@ const GUESTS_OPTION = {
   100: [0]
 };
 
-//const NUMBER_FIELD_RE = /^\d+$/;
-
-export {TYPE_OPTIONS, TYPE_KEYS, FEATURES, PHOTOS, TIME_OPTIONS, GUESTS_OPTION};
+export {TYPE_OPTIONS_PRICE, TYPE_KEYS, FEATURES, PHOTOS, TIME_OPTIONS, GUESTS_OPTION};
