@@ -1,6 +1,6 @@
 import {TYPE_OPTIONS_PRICE} from './data.js';
 
-const cardTemplate = document.querySelector('#card').content;
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const getCard = ({offer, author}) => {
   const newCard = cardTemplate.cloneNode(true);
@@ -26,9 +26,6 @@ const getCard = ({offer, author}) => {
   }); // PHOTOS
   newCard.querySelectorAll('.popup__photo')[0].classList.add('hidden'); // hiding template
   newCard.querySelector('.popup__avatar').src = author.avatar; // AVATAR
-  //
-  const visualTest = document.querySelector('#map-canvas'); //--DELETE
-  visualTest.appendChild(newCard);
   return newCard;
 };
 

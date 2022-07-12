@@ -3,7 +3,9 @@ const changePageMode = (activate) => {
   const formContent = form.querySelectorAll('fieldset');
   const mapFilter = document.querySelector('.map__filters');
   const mapFilterContent = mapFilter.querySelectorAll('select, fieldset');
-  if (activate){ // ACTIVATE
+  const priceSlider = document.querySelector('.ad-form__slider');
+
+  if (activate) { // ACTIVATE
     form.classList.remove('ad-form--disabled');
     formContent.forEach((element) => {
       element.removeAttribute('disabled');
@@ -12,8 +14,9 @@ const changePageMode = (activate) => {
     mapFilterContent.forEach((element) => {
       element.removeAttribute('disabled');
     });
+    priceSlider.removeAttribute('disabled');
   } else { // DEACTIVATE
-    form.classList.add('ad-form--disabled');
+    //form.classList.add('ad-form--disabled');
     formContent.forEach((element) => {
       element.setAttribute('disabled', 'disabled');
     });
@@ -21,6 +24,7 @@ const changePageMode = (activate) => {
     mapFilterContent.forEach((element) => {
       element.setAttribute('disabled', 'disabled');
     });
+    priceSlider.setAttribute('disabled', 'disabled');
   }
 };
 
