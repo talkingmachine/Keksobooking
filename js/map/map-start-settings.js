@@ -44,4 +44,4 @@ mainMarker.on('moveend', (evt) => {
 
 export {markerPosition, mainMarker};
 
-export {mainMap}
+export {mainMap};
