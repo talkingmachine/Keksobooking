@@ -1,11 +1,10 @@
-import {GUESTS_OPTION, TYPE_OPTIONS_PRICE} from './data.js';
+import {GUESTS_OPTION, TYPE_OPTIONS_PRICE} from '../data.js';
+import {updateSlider} from './form-utils.js';
 
 const adForm = document.querySelector('.ad-form');
 const selectedRoomOption = adForm.querySelector('#room_number');
 const type = adForm.querySelector('#type');
 const price = adForm.querySelector('#price');
-const timeIn = adForm.querySelector('#timein');
-const timeOut = adForm.querySelector('#timeout');
 
 const adFormPristine = new Pristine(adForm, {
   classTo: 'ad-form__element',
@@ -21,7 +20,6 @@ adFormPristine.addValidator(adForm.querySelector('#title'),
   'От 30 до 100 символов'
 ); // #TITLE
 
-
 adFormPristine.addValidator(adForm.querySelector('#price'),
   (value) => (
     +value < 100000
@@ -32,15 +30,10 @@ adFormPristine.addValidator(adForm.querySelector('#price'),
 const guestsOptionValidator = (value) => (
   GUESTS_OPTION[selectedRoomOption.value].includes(+value)
 );
-
 adFormPristine.addValidator(adForm.querySelector('#capacity'),
   guestsOptionValidator,
   'Количество гостей не соответствует количеству комнат'
 ); //GUESTS
-
-const setMinPrice = () => {
-  price.placeholder = TYPE_OPTIONS_PRICE[type.value][1];
-};
 
 adFormPristine.addValidator(adForm.querySelector('#price'),
   (value) => (
@@ -49,19 +42,15 @@ adFormPristine.addValidator(adForm.querySelector('#price'),
   'Цена меньше минимальной'
 ); //PRICE min
 
+const setMinPrice = () => {
+  price.placeholder = TYPE_OPTIONS_PRICE[type.value][1];
+};
 setMinPrice();
 type.addEventListener('change', () => {
   setMinPrice();
+  updateSlider();
   adFormPristine.validate(price);
 });
-
-timeIn.addEventListener('change', () => {
-  timeOut.value = timeIn.value;
-});
-timeOut.addEventListener('change', () => {
-  timeIn.value = timeOut.value;
-}); //TIME
-
 
 adForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -69,4 +58,3 @@ adForm.addEventListener('submit', (e) => {
     adForm.submit();
   }
 });
-
