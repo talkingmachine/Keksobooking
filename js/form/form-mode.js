@@ -16,7 +16,7 @@ const changePageMode = (activate) => {
     });
     priceSlider.removeAttribute('disabled');
   } else { // DEACTIVATE
-    //form.classList.add('ad-form--disabled');
+    form.classList.add('ad-form--disabled');
     formContent.forEach((element) => {
       element.setAttribute('disabled', 'disabled');
     });

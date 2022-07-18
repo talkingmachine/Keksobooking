@@ -1,10 +1,15 @@
 import {GUESTS_OPTION, TYPE_OPTIONS_PRICE} from '../data.js';
 import {updateSlider} from './form-utils.js';
+import {sendData} from '../fetch-settings.js';
+import {resetForm, addErrorMessage, addSuccessMessage} from '../utils.js';
 
 const adForm = document.querySelector('.ad-form');
 const selectedRoomOption = adForm.querySelector('#room_number');
 const type = adForm.querySelector('#type');
 const price = adForm.querySelector('#price');
+const submit = adForm.querySelector('.ad-form__submit');
+const reset = adForm.querySelector('.ad-form__reset');
+
 
 const adFormPristine = new Pristine(adForm, {
   classTo: 'ad-form__element',
@@ -54,7 +59,22 @@ type.addEventListener('change', () => {
 
 adForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  if (adFormPristine.validate()) {
-    adForm.submit();
+  if (adFormPristine.validate()) { //if (adFormPristine.validate()) {
+    const adFormData = new FormData(adForm);
+    submit.setAttribute('disabled', 'disabled');
+    sendData(adFormData,
+      () => {
+        resetForm();
+        addSuccessMessage();
+        submit.removeAttribute('disabled');
+      },
+      () => {
+        addErrorMessage();
+      });
   }
+});
+
+reset.addEventListener('click', (e) => {
+  e.preventDefault();
+  resetForm();
 });

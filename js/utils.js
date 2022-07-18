@@ -1,20 +1,69 @@
-const getRandomInt = (min, max) => {
-  if (max < min) {
-    throw 'getRandomInt Error: max value less then min value';
-  }
-  return Math.floor(Math.random() * (max - min + 1) + min);
+import {ALERT_SHOW_TIME, DEFAULT_LAT_LNG} from './data.js';
+import {mainMarker, mainMap} from './map/map-start-settings.js';
+import {updateSlider} from './form/form-utils.js';
+
+const adForm = document.querySelector('.ad-form');
+const mapFilter = document.querySelector('.map__filters');
+const address = document.querySelector('#address');
+const successMessage = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+const errorMessage = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+
+const showAlert = (message, container) => {
+  const alertMessage = document.createElement('div');
+  alertMessage.style.zIndex = '799';
+  alertMessage.style.position = 'absolute';
+  alertMessage.style.left = '0';
+  alertMessage.style.top = '0';
+  alertMessage.style.right = '0';
+  alertMessage.style.padding = '10px 3px';
+  alertMessage.style.fontSize = '20px';
+  alertMessage.style.textAlign = 'center';
+  alertMessage.style.color = 'white';
+  alertMessage.style.backgroundColor = 'rgba(255, 0, 0, .5)';
+  alertMessage.textContent = message;
+  container.append(alertMessage);
+  setTimeout(() => {
+    alertMessage.remove();
+  }, ALERT_SHOW_TIME);
 };
 
-const getRandomNumber = (min, max, fractionDigits) => {
-  if (max < min) {
-    throw 'getRandomNumber Error: max value less then min value';
-  }
-  const randomNumber = Math.random() * (max - min) + min;
-  return +randomNumber.toFixed(fractionDigits);
+const addressToDefault = () => {
+  address.value = `${DEFAULT_LAT_LNG.lat}, ${DEFAULT_LAT_LNG.lng}`;
 };
 
-const getArrayElement = (array) => (
-  getRandomInt(0, array.length - 1)
-);
+const resetForm = () => {
+  adForm.reset();
+  mapFilter.reset();
+  mainMarker.setLatLng(DEFAULT_LAT_LNG);
+  updateSlider();
+  addressToDefault();
+  mainMap.closePopup().setView(DEFAULT_LAT_LNG, 10);
+};
 
-export {getArrayElement, getRandomNumber, getRandomInt};
+const removeSuccessMessage = (e) => {
+  if (e.key === 'Escape' || e.key === undefined) {
+    document.body.removeChild(successMessage);
+    document.removeEventListener('click', removeSuccessMessage);
+    document.removeEventListener('keydown', removeSuccessMessage);
+  }
+};
+const addSuccessMessage = () => {
+  document.body.appendChild(successMessage);
+  document.addEventListener('click', removeSuccessMessage);
+  document.addEventListener('keydown', removeSuccessMessage);
+};
+
+
+const removeErrorMessage = (e) => {
+  if (e.key === 'Escape' || e.key === undefined) {
+    document.body.removeChild(errorMessage);
+    document.removeEventListener('click', removeErrorMessage);
+    document.removeEventListener('keydown', removeErrorMessage);
+  }
+};
+const addErrorMessage = () => {
+  document.body.appendChild(errorMessage);
+  document.addEventListener('click', removeErrorMessage);
+  document.addEventListener('keydown', removeErrorMessage);
+};
+export {showAlert, resetForm, addressToDefault, addSuccessMessage, addErrorMessage};

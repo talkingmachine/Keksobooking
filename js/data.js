@@ -6,27 +6,6 @@ const TYPE_OPTIONS_PRICE = {
   'hotel': ['Отель', 3000]
 };
 
-const TYPE_KEYS = Object.keys(TYPE_OPTIONS_PRICE);
-
-const TIME_OPTIONS = [
-  '12:00',
-  '13:00',
-  '14:00'
-];
-const FEATURES = [
-  'wifi',
-  'dishwasher',
-  'parking',
-  'washer',
-  'elevator',
-  'conditioner'
-];
-const PHOTOS = [
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
-];
-
 const GUESTS_OPTION = {
   1: [1],
   2: [1,2],
@@ -39,4 +18,6 @@ const DEFAULT_LAT_LNG = {
   lng: 139.69171,
 };
 
-export {TYPE_OPTIONS_PRICE, TYPE_KEYS, FEATURES, PHOTOS, TIME_OPTIONS, GUESTS_OPTION, DEFAULT_LAT_LNG};
+const ALERT_SHOW_TIME = 10000;
+
+export {TYPE_OPTIONS_PRICE, GUESTS_OPTION, DEFAULT_LAT_LNG, ALERT_SHOW_TIME};
