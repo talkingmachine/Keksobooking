@@ -1,2 +1,4 @@
 import './map-start-settings.js';
-import './map-ads-points.js';
+import '../form/form-mode.js';
+
+
