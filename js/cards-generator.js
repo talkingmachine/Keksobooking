@@ -27,11 +27,13 @@ const getCards = (adsList) => {
     } else {
       newCard.querySelector('.popup__description').classList.add('hidden');
     } // DESCRIPTION
-    offer.photos.forEach((photoSrc) => {
-      const photo = newCard.querySelector('.popup__photo').cloneNode(true);
-      photo.src = photoSrc;
-      newCard.querySelector('.popup__photos').appendChild(photo);
-    }); // PHOTOS
+    if (offer.photos) {
+      offer.photos.forEach((photoSrc) => {
+        const photo = newCard.querySelector('.popup__photo').cloneNode(true);
+        photo.src = photoSrc;
+        newCard.querySelector('.popup__photos').appendChild(photo);
+      });
+    }// PHOTOS
     newCard.querySelectorAll('.popup__photo')[0].classList.add('hidden'); // hiding template
     newCard.querySelector('.popup__avatar').src = author.avatar; // AVATAR
     cardsList.push(newCard);
