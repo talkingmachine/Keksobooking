@@ -1,44 +1,33 @@
-import {changePageMode} from '../form/form-mode.js';
-import {DEFAULT_LAT_LNG} from '../data.js';
+import {changePageMode, changeMapFilterMode} from '../form/form-mode.js';
+import {DEBOUNCE_DELAY, DEFAULT_LAT_LNG} from '../data.js';
 import {getData} from '../fetch-settings.js';
-import {getCards} from '../cards-generator.js';
-import {showAlert} from '../utils.js';
+import {debounce, showAlert} from '../utils.js';
+import {renderMarkers} from './map-ads-points.js';
 
 const address = document.querySelector('#address');
+const mapFilters = document.querySelector('.map__filters');
 changePageMode(false);
-const adMarkerIcon = L.icon({
-  iconUrl: './img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
-});
+changeMapFilterMode(false);
 
-const dataFail = () => {
+const mainMap = L.map('map-canvas'); //MAP GENERATE
+const mapAdsMarkers = L.layerGroup().addTo(mainMap); //LAYER GROUP GENERATE
+
+const onDataFail = () => {
   showAlert('Данные о похожих объявлениях недоступны', document.querySelector('.map__canvas'));
 };
-
-const mainMap = L.map('map-canvas')
-  .on('load', () => {
-    changePageMode(true);
-    getData(
-      (data) => {
-        getCards(data.slice(0, 10)).forEach((ad,i) => {
-          const marker = L.marker(
-            {
-              lat: data[i].location.lat,
-              lng: data[i].location.lng,
-            },
-            {
-              icon: adMarkerIcon
-            }
-          );
-          marker
-            .addTo(mainMap)
-            .bindPopup(ad);
-        });
-      },
-      dataFail);
-  })
-  .setView(DEFAULT_LAT_LNG, 10);
+mainMap.on('load', () => {
+  changePageMode(true);
+  getData((data) => {
+    renderMarkers(data, mapAdsMarkers);
+    changeMapFilterMode(true);
+    mapFilters.addEventListener('change', () => {
+      (debounce(() => renderMarkers(data, mapAdsMarkers), DEBOUNCE_DELAY))();
+    });
+    mapFilters.addEventListener('reset', () => {
+      setTimeout(() => renderMarkers(data, mapAdsMarkers));
+    });
+  }, onDataFail);
+}).setView(DEFAULT_LAT_LNG, 10);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',

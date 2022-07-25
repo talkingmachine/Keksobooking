@@ -1,4 +1,4 @@
-import {addressToDefault} from '../utils.js';
+import {setAddressToDefault} from '../utils.js';
 
 const adForm = document.querySelector('.ad-form');
 const price = adForm.querySelector('#price');
@@ -38,6 +38,6 @@ timeOut.addEventListener('change', () => {
   timeIn.value = timeOut.value;
 }); // TIME
 
-addressToDefault();
+setAddressToDefault();
 
 export {updateSlider};

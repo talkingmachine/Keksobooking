@@ -27,7 +27,7 @@ const showAlert = (message, container) => {
   }, ALERT_SHOW_TIME);
 };
 
-const addressToDefault = () => {
+const setAddressToDefault = () => {
   address.value = `${DEFAULT_LAT_LNG.lat}, ${DEFAULT_LAT_LNG.lng}`;
 };
 
@@ -36,7 +36,7 @@ const resetForm = () => {
   mapFilter.reset();
   mainMarker.setLatLng(DEFAULT_LAT_LNG);
   updateSlider();
-  addressToDefault();
+  setAddressToDefault();
   mainMap.closePopup().setView(DEFAULT_LAT_LNG, 10);
 };
 
@@ -66,4 +66,20 @@ const addErrorMessage = () => {
   errorMessage.addEventListener('click', removeErrorMessage);
   document.addEventListener('keydown', removeErrorMessage);
 };
-export {showAlert, resetForm, addressToDefault, addSuccessMessage, addErrorMessage};
+
+function debounce (callback, timeoutDelay = 500) {
+  // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
+  // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
+  let timeoutId;
+  return (...rest) => {
+    // Перед каждым новым вызовом удаляем предыдущий таймаут,
+    // чтобы они не накапливались
+    clearTimeout(timeoutId);
+    // Затем устанавливаем новый таймаут с вызовом колбэка на ту же задержку
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+
+    // Таким образом цикл «поставить таймаут - удалить таймаут» будет выполняться,
+    // пока действие совершается чаще, чем переданная задержка timeoutDelay
+  };
+}
+export {showAlert, resetForm, setAddressToDefault, addSuccessMessage, addErrorMessage, debounce};
