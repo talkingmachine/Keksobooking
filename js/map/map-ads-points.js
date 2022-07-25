@@ -9,7 +9,7 @@ const adMarkerIcon = L.icon({
 
 const renderMarkers = (data, markersLayer) => {
   markersLayer.clearLayers();
-  const filteredAds = getFilteredAds(data).slice(0, 10);
+  const filteredAds = getFilteredAds(data);
   getCards(filteredAds).forEach((ad, i) => {
     const marker = L.marker(
       {

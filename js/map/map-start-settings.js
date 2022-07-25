@@ -24,7 +24,7 @@ mainMap.on('load', () => {
       (debounce(() => renderMarkers(data, mapAdsMarkers), DEBOUNCE_DELAY))();
     });
     mapFilters.addEventListener('reset', () => {
-      (debounce(() => setTimeout(() => renderMarkers(data, mapAdsMarkers)), DEBOUNCE_DELAY))();
+      setTimeout(() => renderMarkers(data, mapAdsMarkers));
     });
   }, onDataFail);
 }).setView(DEFAULT_LAT_LNG, 10);

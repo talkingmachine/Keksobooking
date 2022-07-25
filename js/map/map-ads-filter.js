@@ -1,3 +1,5 @@
+import {ADS_COUNT} from '../data.js';
+
 const getFilteredAds = (ads) => {
   const mapFilters = document.querySelector('.map__filters');
   const type = mapFilters.querySelector('#housing-type').value;
@@ -27,8 +29,6 @@ const getFilteredAds = (ads) => {
     +guests === ad.offer.guests || guests === 'any'
   );
   const featuresFilter = (ad) => {
-    // ad.offer.features - массив, от 0 до длины массива, получены с сервера, может ОТСУТСТВОВАТЬ
-    // features - поля из формы, имеют значения .checked(true/false) и .name('wifi'/'or something')
     if (ad.offer.features) {
       return Array.from(features).every((feature) =>
         !(feature.checked && !ad.offer.features.includes(feature.value)));
@@ -38,12 +38,17 @@ const getFilteredAds = (ads) => {
       );
     }
   };
-  return ads
-    .filter(typeFilter)
-    .filter(priceFilter)//?
-    .filter(guestsFilter)
-    .filter(roomsFilter)
-    .filter(featuresFilter);
+  const filteredAds = [];
+  for (const ad of ads) {
+    if (filteredAds.length > ADS_COUNT) {
+      break;
+    }
+    if (typeFilter(ad) && priceFilter(ad) && guestsFilter(ad) && roomsFilter(ad) && featuresFilter(ad)) {
+      filteredAds.push(ad);
+    }
+  }
+
+  return filteredAds;
 };
 
 export {getFilteredAds};
