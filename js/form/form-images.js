@@ -12,15 +12,15 @@ const isImageValid = (file) => {
   ));
 };
 
-const makePrevImage = (file) => {
-  const prevImage = document.createElement('img');
-  prevImage.src = URL.createObjectURL(file);
-  prevImage.alt = 'Фото жилья';
-  prevImage.width = 40;
-  prevImage.height = 44;
-  prevImage.style.margin = '15px';
-  imagePrev.appendChild(prevImage);
-};
+// const makePrevImage = (file) => {
+//   const prevImage = document.createElement('img');
+//   prevImage.src = URL.createObjectURL(file);
+//   prevImage.alt = 'Фото жилья';
+//   prevImage.width = 40;
+//   prevImage.height = 44;
+//   prevImage.style.margin = '15px';
+//   imagePrev.appendChild(prevImage);
+// };
 
 inputAvatar.addEventListener('change', () => {
   const avatarFile = inputAvatar.files[0];
@@ -29,6 +29,12 @@ inputAvatar.addEventListener('change', () => {
   }
 });
 
+const prevImage = document.createElement('img');
+prevImage.alt = 'Фото жилья';
+prevImage.width = 40;
+prevImage.height = 44;
+prevImage.style.margin = '15px';
+
 inputPrev.addEventListener('change', () => {
   const prevFile = inputPrev.files[0];
   // for (const file of prevFiles) {
@@ -36,7 +42,10 @@ inputPrev.addEventListener('change', () => {
   //     makePrevImage(file);
   //   }
   // }
+  if (!imagePrev.firstChild) {
+    imagePrev.appendChild(prevImage);
+  }
   if (isImageValid(prevFile)) {
-    makePrevImage(prevFile);
+    prevImage.src = URL.createObjectURL(prevFile);
   }
 });
